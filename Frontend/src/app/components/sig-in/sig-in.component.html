@@ -1,0 +1,51 @@
+<div class="wrapper ">
+    <div class="body">
+        <img class="imagen" src=".../../../../../assets/img/imgcuenta.jpg" alt="imglogin">
+        <h1 class="mb-3">Registrar usuario</h1>
+        <form [formGroup]="formRegistroUser">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" placeholder="Nombre de usuario" formControlName="Nombre">
+                <label>Nombre de usuario</label>
+                <div class="alert alert-danger mt-2" [hidden]="getNombre.valid || getNombre.pristine">
+                    El nombre de usuario es requerido
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" placeholder="Correo del usuario" formControlName="Correo">
+                <label>Correo electronico</label>
+                <div class="alert alert-danger mt-2" [hidden]="getCorreo.valid || getCorreo.pristine">
+                    <span *ngIf="getCorreo.errors?.['required']">
+                        El correo es obligatorio
+                    </span>
+                    <span *ngIf="getCorreo.errors?.['email']">
+                        El correo es no es valido
+                    </span>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" placeholder="Contraseña" formControlName="Contraseña">
+                <label>Contraseña</label>
+                <div class="alert alert-danger mt-2" [hidden]="getContrasena.valid || getContrasena.pristine">
+                    La contraseña es requerida
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="ConfirmarContraseña" placeholder="Confirmar Contrasena"
+                    formControlName="ConfirmarContraseña">
+                <label>Confirmar Contraseña</label>
+                <div class="alert alert-danger mt-2"
+                    [hidden]="getConfirmarContrasena.valid || getConfirmarContrasena.pristine">
+                    La contraseña es requerida
+                </div>
+            </div>
+        </form>
+        <div class="d-grid gap-2 mb-3">
+            <button type="button" class="btn btn-outline-primary btn-lg" (click)="addUser()"
+                [disabled]="formRegistroUser.invalid" routerLink="/dashboard">
+                Crear cuenta</button>
+        </div>
+        <div class="d-grid gap-2">
+            <button type="button" class="btn btn-outline-warning btn-lg" routerLink="/login">Volver</button>
+        </div>
+    </div>
+</div>

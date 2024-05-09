@@ -1,0 +1,10 @@
+.table-container {
+  padding: 30px;
+  /* Ajusta el valor según el espacio que desees entre el borde de la tabla y el borde de la pantalla */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  /* Asegura que los bordes de las celdas se fusionen */
+}

@@ -1,0 +1,40 @@
+<!-- <div class="wrapper">
+    <h1>Login</h1>
+    <div class="contenedor rounded-3">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" placeholder="name@example.com">
+            <label>Email address</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <img class="imagen rounded float-end" src=".../../../../../assets/img/imglogin.jpg" alt="imglogin">
+    </div>
+</div> -->
+
+<div class="wrapper">
+    <div class="body">
+        <img class="imagen" src=".../../../../../assets/img/imglogin.jpg" alt="imglogin">
+        <h1 class="mb-3">Iniciar sesión</h1>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" placeholder="Nombre de usuario">
+            <label>Nombre de usuario</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Contraseña">
+            <label>Contraseña</label>
+        </div>
+        <div class="d-grid gap-2">
+            <button type="button" class="btn btn-outline-primary btn-lg" routerLink="/dashboard">Ingresar</button>
+        </div>
+        <p class="mt-3">¿No tienes cuenta?
+            <a routerLink="/sig-in" class="icon-link icon-link-hover"
+                style="--bs-link-hover-color-rgb: 25, 135, 84;">Registrate
+                <svg class="bi" aria-hidden="true">
+                    <use xlink:href="#arrow-right"></use>
+                </svg>
+            </a>
+        </p>
+    </div>
+</div>
