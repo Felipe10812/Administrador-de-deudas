@@ -40,6 +40,9 @@ const DefinicionUsuarios = connection_1.default.define('Usuarios', {
     },
     FechaRegistro: {
         type: sequelize_1.DataTypes.DATE
+    },
+    Correo: {
+        type: sequelize_1.DataTypes.STRING
     }
 }, {
     freezeTableName: true,

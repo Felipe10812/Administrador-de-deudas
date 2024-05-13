@@ -36,6 +36,9 @@ const DefinicionUsuarios = sequelize.define('Usuarios', {
     },
     FechaRegistro: {
         type: DataTypes.DATE
+    },
+    Correo: {
+        type: DataTypes.STRING
     }
 }, {
     freezeTableName: true,

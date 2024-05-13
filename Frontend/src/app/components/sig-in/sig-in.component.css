@@ -22,3 +22,10 @@ input {
     width: 100%;
     text-align: center;
 }
+
+.app-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

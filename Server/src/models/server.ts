@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import cors from 'cors';
 import routesDeudas from '../routes/Deudas';
 import routerUsers from '../routes/user';
 
@@ -12,6 +13,7 @@ class Server {
         this.listen();
         this.midlewares();
         this.routes();
+        this.dbConnector();
     }
 
     listen() {
@@ -27,7 +29,11 @@ class Server {
     }
 
     midlewares() {
+        // Parseo body 
         this.app.use(express.json());
+
+        // Cores
+        this.app.use(cors())
     }
 
     async dbConnector() {

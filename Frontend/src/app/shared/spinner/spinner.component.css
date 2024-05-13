@@ -1,0 +1,12 @@
+.mat-spinner.primary-color circle {
+    stroke: #3f51b5;
+    /* Reemplaza esto con tu color primario */
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Ajusta la altura según sea necesario */
+}

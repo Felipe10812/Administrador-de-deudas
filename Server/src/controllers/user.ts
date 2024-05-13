@@ -5,11 +5,10 @@ import DefinicionUsuarios from "../models/users";
 import jws from 'jsonwebtoken';
 
 export const nuevoUsuario = async (req: Request, res: Response) => {
-    const { userName, password } = req.body;
+    const { userName, password, Correo } = req.body;
     const hashPassword = await bcrypt.hash(password, 10);
-
-    const user = await DefinicionUsuarios.findOne({ where: { Nombre: userName } })
     try {
+        const user = await DefinicionUsuarios.findOne({ where: { Correo: Correo } })
         if (user) {
             return res.status(400).json({
                 msg: `Ya existe un usuario con el nombre ${userName}`
@@ -17,7 +16,7 @@ export const nuevoUsuario = async (req: Request, res: Response) => {
         }
         else {
             // Ejecución del procedimiento almacenado
-            await sequelize.query(`exec procUsuariosNuevos '${userName}', '${hashPassword}'`);
+            await sequelize.query(`exec procUsuariosNuevos '${userName}', '${hashPassword}', '${Correo}'`);
 
             res.json({
                 msg: `Usuario ${userName} creado exitosamente`

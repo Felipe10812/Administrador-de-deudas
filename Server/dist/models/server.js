@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const Deudas_1 = __importDefault(require("../routes/Deudas"));
 const user_1 = __importDefault(require("../routes/user"));
 class Server {
@@ -22,6 +23,7 @@ class Server {
         this.listen();
         this.midlewares();
         this.routes();
+        this.dbConnector();
     }
     listen() {
         this.app.listen(this.port, () => {
@@ -34,7 +36,10 @@ class Server {
         this.app.use('/api/users', user_1.default);
     }
     midlewares() {
+        // Parseo body 
         this.app.use(express_1.default.json());
+        // Cores
+        this.app.use((0, cors_1.default)());
     }
     dbConnector() {
         return __awaiter(this, void 0, void 0, function* () {

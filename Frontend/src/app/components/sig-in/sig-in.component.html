@@ -1,5 +1,5 @@
 <div class="wrapper ">
-    <div class="body">
+    <div *ngIf="!false" class="body">
         <img class="imagen" src=".../../../../../assets/img/imgcuenta.jpg" alt="imglogin">
         <h1 class="mb-3">Registrar usuario</h1>
         <form [formGroup]="formRegistroUser">
@@ -41,11 +41,12 @@
         </form>
         <div class="d-grid gap-2 mb-3">
             <button type="button" class="btn btn-outline-primary btn-lg" (click)="addUser()"
-                [disabled]="formRegistroUser.invalid" routerLink="/dashboard">
+                [disabled]="formRegistroUser.invalid">
                 Crear cuenta</button>
         </div>
         <div class="d-grid gap-2">
             <button type="button" class="btn btn-outline-warning btn-lg" routerLink="/login">Volver</button>
         </div>
+        <app-spinner *ngIf="loading"></app-spinner>
     </div>
 </div>

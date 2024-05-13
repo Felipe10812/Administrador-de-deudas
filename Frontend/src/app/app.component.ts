@@ -5,11 +5,16 @@ import SigInComponent from './components/sig-in/sig-in.component';
 import DashboardComponent from './components/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LoginComponent, RouterModule, SigInComponent, DashboardComponent, HttpClientModule],
+  imports: [
+    LoginComponent,
+    RouterModule,
+    SigInComponent,
+    DashboardComponent,
+    HttpClientModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 

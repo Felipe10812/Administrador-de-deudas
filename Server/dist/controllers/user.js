@@ -18,10 +18,10 @@ const connection_1 = __importDefault(require("../db/connection"));
 const users_1 = __importDefault(require("../models/users"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const nuevoUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userName, password } = req.body;
+    const { userName, password, Correo } = req.body;
     const hashPassword = yield bcrypt_1.default.hash(password, 10);
-    const user = yield users_1.default.findOne({ where: { Nombre: userName } });
     try {
+        const user = yield users_1.default.findOne({ where: { Correo: Correo } });
         if (user) {
             return res.status(400).json({
                 msg: `Ya existe un usuario con el nombre ${userName}`
@@ -29,7 +29,7 @@ const nuevoUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         }
         else {
             // Ejecución del procedimiento almacenado
-            yield connection_1.default.query(`exec procUsuariosNuevos '${userName}', '${hashPassword}'`);
+            yield connection_1.default.query(`exec procUsuariosNuevos '${userName}', '${hashPassword}', '${Correo}'`);
             res.json({
                 msg: `Usuario ${userName} creado exitosamente`
             });
