@@ -1,0 +1,16 @@
+<h1 class="centrar-texto">Agregar Deuda</h1>
+<div id="AgregregarDeuda">
+    <form [formGroup]="formRegistroDeuda">
+        <div class="form-floating mb-3">
+            <select class="form-control" formControlName="MedioPrestamo">
+                <option *ngFor="let medio of mediosPrestamo" [value]="medio.id">
+                    {{ medio.nombre }}
+                </option>
+            </select>
+            <label>Medio por el cual se hizo el préstamo</label>
+            <!-- <div class="alert alert-danger mt-2" [hidden]="getMedioPrestamo.valid || getMedioPrestamo.pristine">
+                El campo es requerido
+            </div> -->
+        </div>
+    </form>
+</div>

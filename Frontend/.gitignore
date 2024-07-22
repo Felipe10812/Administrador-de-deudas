@@ -40,3 +40,10 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+
+# Ignorar node_modules
+#/Server/node_modules/
+
+# Ignorar dist
+#dist/

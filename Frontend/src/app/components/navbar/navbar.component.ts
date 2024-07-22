@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { DeudasService } from '../../services/deudas.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,4 +12,14 @@ import { RouterModule } from '@angular/router';
 })
 export class NavbarComponent {
 
+  constructor(private router: Router,) { }
+
+  ngOnInit(): void {
+
+  }
+
+  Salir() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login'])
+  }
 }

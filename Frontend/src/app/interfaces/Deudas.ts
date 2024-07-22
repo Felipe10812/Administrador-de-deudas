@@ -8,3 +8,17 @@ export interface Deudas {
     FechaModificacion: Date,
     EsActivo: boolean
 }
+
+export interface Deudores {
+    IdUsuario: number,
+    Nombre: string,
+    Cantidad: number
+}
+
+export interface AgregarDeuda {
+    IdUsuario: number,
+    IdMedioPrestamo: number,
+    Cantidad: number,
+    Motivo: string
+    FechaRegistro: Date
+}

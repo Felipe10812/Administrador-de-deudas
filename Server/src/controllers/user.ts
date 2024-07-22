@@ -33,12 +33,12 @@ export const nuevoUsuario = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     try {
-        const { userName, password } = req.body;
+        const { Correo, password } = req.body;
         // Validamos si el usuario existe en la base de datos 
-        const user: any = await DefinicionUsuarios.findOne({ where: { Nombre: userName } })
+        const user: any = await DefinicionUsuarios.findOne({ where: { Correo: Correo } })
         if (!user) {
             return res.status(400).json({
-                msg: `No existe el usuario con el nombre ${userName}`
+                msg: `No existe el usuario con el nombre ${Correo}`
             });
         }
         // Validamos la contraseña 
@@ -51,7 +51,7 @@ export const login = async (req: Request, res: Response) => {
         }
         // generamos el token 
         const token = jws.sign({
-            userName: userName,
+            Correo: Correo,
         }, process.env.SECRET_KEY || 'Hola', {
             expiresIn: '30000000'
         });

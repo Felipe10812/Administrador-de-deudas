@@ -14,7 +14,7 @@
 </div> -->
 
 <div class="wrapper">
-    <div class="body">
+    <div *ngIf="!loading" class="body">
         <img class="imagen" src=".../../../../../assets/img/imglogin.jpg" alt="imglogin">
         <h1 class="mb-3">Iniciar sesión</h1>
         <form [formGroup]="formLogin">
@@ -52,4 +52,5 @@
             </a>
         </p>
     </div>
+    <app-spinner *ngIf="loading"></app-spinner>
 </div>

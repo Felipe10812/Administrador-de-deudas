@@ -6,21 +6,27 @@ import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../services/user.service';
 import { loginUsuario } from '../../interfaces/User';
+import { HttpErrorResponse } from '@angular/common/http';
+import { SpinnerComponent } from '../../shared/spinner/spinner.component';
+import { ErrorService } from '../../services/error.service';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, SpinnerComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export default class LoginComponent implements OnInit {
 
+  loading: boolean = false;
+
   constructor(
     private router: Router,
     private toastr: ToastrService,
-    private userService: UserService
+    private userService: UserService,
+    private _errorService: ErrorService
   ) { }
 
   get getCorreo() {
@@ -50,13 +56,17 @@ export default class LoginComponent implements OnInit {
       password: this.getContrasena.value
     }
 
+    this.loading = true;
     this.userService.login(loginUsuario).subscribe({
-      next: (data) => {
-        console.log(data);
-      }
+      next: (token) => {
+        localStorage.setItem('token', token);
+        this.router.navigate(['/dashboard']);
+      },
+      error: (e: HttpErrorResponse) => {
+        this._errorService.msjError(e);
+        this.loading = false;
+      },
     })
-
   }
-
 
 }

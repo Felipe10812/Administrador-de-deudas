@@ -8,3 +8,50 @@ table {
   border-collapse: collapse;
   /* Asegura que los bordes de las celdas se fusionen */
 }
+
+.mat-column-Nombre,
+.mat-column-Cantidad {
+  width: 40%;
+}
+
+.mat-column-Acciones {
+  width: 20%;
+}
+
+.action-button {
+  margin-right: 10px;
+  /* Ajusta este valor según el espacio que desees entre los botones */
+}
+
+
+section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}

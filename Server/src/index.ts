@@ -7,6 +7,5 @@ dotenv.config();
 
 const server = new Server();
 
-
 // const nombre: string = 'Hola';
 // console.log(nombre)

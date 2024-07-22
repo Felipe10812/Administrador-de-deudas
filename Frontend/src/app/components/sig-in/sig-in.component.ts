@@ -7,6 +7,7 @@ import { Usuario } from '../../interfaces/User';
 import { UserService } from '../../services/user.service';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { SpinnerComponent } from '../../shared/spinner/spinner.component';
+import { ErrorService } from '../../services/error.service';
 
 
 @Component({
@@ -29,7 +30,8 @@ export default class SigInComponent implements OnInit {
   constructor(
     private router: Router,
     private toastr: ToastrService,
-    private userService: UserService
+    private userService: UserService,
+    private _errorService: ErrorService
   ) { }
 
   get getNombre() {
@@ -67,9 +69,9 @@ export default class SigInComponent implements OnInit {
       return;
     }
     const usuario: Usuario = {
-      userName: this.getNombre.value,
-      password: this.getContrasena.value,
-      Correo: this.getCorreo.value
+      userName: this.getNombre.value.trim(),
+      password: this.getContrasena.value.trim(),
+      Correo: this.getCorreo.value.trim()
     }
 
     this.loading = true;
@@ -80,14 +82,9 @@ export default class SigInComponent implements OnInit {
         this.router.navigate(['/login']);
       },
       error: (e: HttpErrorResponse) => {
+        this._errorService.msjError(e);
         this.loading = false;
-        if (e.status === 409) {
-          this.toastr.error('El correo electrónico ya está registrado', 'Error');
-        } else {
-          this.toastr.error('Hubo un error al registrar el usuario', 'Error');
-        }
-      },
-      complete: () => console.info('Complete')
+      }
     })
 
   }
