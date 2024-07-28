@@ -1,3 +1,49 @@
 .centrar-texto {
     text-align: center;
+    color: white;
+    /* Title color changed to white */
+}
+
+#AgregarDeuda {
+    background-color: #424242;
+    /* Dialog background color */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-floating {
+    margin-bottom: 15px;
+}
+
+.custom-select {
+    background-color: #616161;
+    /* Dropdown background color */
+    color: white;
+    /* Dropdown text color */
+    border: 1px solid #757575;
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.custom-select option {
+    background-color: #424242;
+    /* Option background color */
+    color: white;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.alert-danger {
+    background-color: #d32f2f;
+    color: white;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 14px;
 }

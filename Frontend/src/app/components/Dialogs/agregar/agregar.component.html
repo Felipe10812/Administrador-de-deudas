@@ -1,16 +1,42 @@
-<h1 class="centrar-texto">Agregar Deuda</h1>
-<div id="AgregregarDeuda">
-    <form [formGroup]="formRegistroDeuda">
+<h1 class="centrar-texto">Agregar deuda</h1>
+<div id="AgregarDeuda">
+    <form [formGroup]="formRegistroDeuda" (ngSubmit)="onSubmit()">
         <div class="form-floating mb-3">
-            <select class="form-control" formControlName="MedioPrestamo">
-                <option *ngFor="let medio of mediosPrestamo" [value]="medio.id">
-                    {{ medio.nombre }}
+            <select class="form-control custom-select" formControlName="MedioPrestamo">
+                <option *ngFor="let medio of mediosPrestamo" [value]="medio.IdMedio">
+                    {{ medio.Nombre }}
                 </option>
             </select>
             <label>Medio por el cual se hizo el préstamo</label>
-            <!-- <div class="alert alert-danger mt-2" [hidden]="getMedioPrestamo.valid || getMedioPrestamo.pristine">
+            <div class="alert alert-danger mt-2" [hidden]="getMedioPrestamo?.valid || getMedioPrestamo?.pristine">
                 El campo es requerido
-            </div> -->
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" formControlName="FechaPrestamo">
+            <label>Fecha del préstamo</label>
+            <div class="alert alert-danger mt-2" [hidden]="getFechaPrestamo?.valid || getFechaPrestamo?.pristine">
+                El campo es requerido
+            </div>
+        </div>
+        <div class="form-floating mb-3 position-relative">
+            <input type="number" class="form-control" formControlName="Cantidad" placeholder="Cantidad" step="0.01"
+                (input)="onCantidadInput($event)">
+            <label class="currency-label">$ Cantidad</label>
+            <div class="alert alert-danger mt-2" [hidden]="getCantidad?.valid || getCantidad?.pristine">
+                El campo es requerido
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <textarea class="form-control" formControlName="Motivo" placeholder="Motivo"></textarea>
+            <label>Motivo</label>
+            <div class="alert alert-danger mt-2" [hidden]="getMotivo?.valid || getMotivo?.pristine">
+                El campo es requerido
+            </div>
+        </div>
+        <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Agregar</button>
         </div>
     </form>
 </div>

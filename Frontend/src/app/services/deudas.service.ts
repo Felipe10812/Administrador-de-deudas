@@ -17,9 +17,6 @@ export class DeudasService {
   }
 
   getDeudas(): Observable<Deudores[]> {
-    /* const token = localStorage.getItem('token')
-    const headears = new HttpHeaders().set('authorization', `Bearer ${token}`)
-    return this.http.get<Deudas[]>(`${this.MyAppUrl}${this.MyApiUrl}`, { headers: headears }) */
     return this.http.get<Deudores[]>(`${this.MyAppUrl}${this.MyApiUrl}`)
   }
 

@@ -27,7 +27,7 @@ class Server {
     routes() {
         this.app.use('/api/Deudas', routesDeudas);
         this.app.use('/api/users', routerUsers);
-        this.app.use('/api/dropdown', routerDrop);
+        this.app.use('/api/MediosPrestamo', routerDrop);
     }
 
     midlewares() {

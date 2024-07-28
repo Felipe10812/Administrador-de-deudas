@@ -1,3 +1,12 @@
 .color {
     background-color: #121212;
 }
+
+.imagen {
+    width: 85px;
+    /* Ancho de la imagen */
+    height: auto;
+    /* Ajuste proporcional de la altura */
+    max-width: 100%;
+    /* Ajusta la imagen a no ser más grande que su contenedor */
+}

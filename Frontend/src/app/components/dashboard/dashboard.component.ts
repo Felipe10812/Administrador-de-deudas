@@ -40,11 +40,9 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
 
   }
 
-
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
-
 
   ngOnInit(): void {
     this.getDeudas();
@@ -52,9 +50,10 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
 
   onAgregar(element: Deudas) {
     let dialogRef = this.dialog.open(AgregarComponent, {
-      height: '600px',
-      width: '500px',
+      height: 'auto',
+      width: '400px',
       data: element,
+      panelClass: 'custom-dialog-container'
     });
   }
 
