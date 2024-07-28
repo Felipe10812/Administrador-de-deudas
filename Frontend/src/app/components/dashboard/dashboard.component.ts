@@ -55,6 +55,12 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
       data: element,
       panelClass: 'custom-dialog-container'
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getDeudas(); // Recargar los datos después de cerrar el diálogo
+      }
+    });
   }
 
   getDeudas() {

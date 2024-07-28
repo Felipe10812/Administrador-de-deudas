@@ -5,6 +5,10 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validator
 import { DropdownService } from '../../../services/dropdown.service';
 import { Medio_Deuda_Prestamo } from '../../../interfaces/Dropdown';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { DeudasService } from '../../../services/deudas.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorService } from '../../../services/error.service';
 
 @Component({
   selector: 'app-agregar',
@@ -15,16 +19,17 @@ import { CommonModule } from '@angular/common';
 })
 export class AgregarComponent implements OnInit {
 
-  agregarDeuda!: AgregarDeuda;
   formRegistroDeuda: FormGroup;
   mediosPrestamo: Medio_Deuda_Prestamo[] = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: AgregarDeuda,
+    @Inject(MAT_DIALOG_DATA) public data: { IdUsuario: number },
     private dialogRef: MatDialogRef<AgregarComponent>,
-    private _dropdownService: DropdownService
+    private _dropdownService: DropdownService,
+    private toastr: ToastrService,
+    private deudasService: DeudasService,
+    private _errorService: ErrorService,
   ) {
-    this.agregarDeuda = data;
     this.formRegistroDeuda = new FormGroup({
       MedioPrestamo: new FormControl('', Validators.required),
       FechaPrestamo: new FormControl(new Date().toISOString().split('T')[0], Validators.required),
@@ -73,11 +78,30 @@ export class AgregarComponent implements OnInit {
 
   onSubmit() {
     if (this.formRegistroDeuda.valid) {
-      console.log('Formulario válido, enviar datos:', this.formRegistroDeuda.value);
-      this.dialogRef.close();
+      this.addDeuda();
     } else {
-      console.log('Formulario no válido');
+      this.toastr.error('Formulario no válido');
     }
+  }
+
+  addDeuda() {
+    const deuda: AgregarDeuda = {
+      IdUsuario: this.data.IdUsuario,
+      IdMedioPrestamo: this.getMedioPrestamo?.value,
+      FechaRegistro: new Date(this.getFechaPrestamo?.value),
+      Cantidad: parseFloat(this.getCantidad?.value),
+      Motivo: this.getMotivo?.value
+    };
+
+    this.deudasService.postDeuda(deuda).subscribe({
+      next: () => {
+        this.toastr.success('Deuda agregada con éxito');
+        this.dialogRef.close(deuda);
+      },
+      error: (e: HttpErrorResponse) => {
+        this._errorService.msjError(e);
+      }
+    });
   }
 
   onCancel() {
@@ -104,5 +128,4 @@ export class AgregarComponent implements OnInit {
       }
     }
   }
-
 }
