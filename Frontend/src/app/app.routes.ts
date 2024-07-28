@@ -7,6 +7,8 @@ export const routes: Routes = [
     { path: 'login', loadComponent: () => import('./components/login/login.component') },
     { path: 'sig-in', loadComponent: () => import('./components/sig-in/sig-in.component') },
     { path: 'dashboard', loadComponent: () => import('./components/dashboard/dashboard.component') },
+    { path: 'deudores', loadComponent: () => import('./components/Administrador/deudores/deudores.component') },
+
     // { path: 'dashboard', component: DashboardComponent },
 
     { path: '**', redirectTo: 'login', pathMatch: 'full' }

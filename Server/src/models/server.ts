@@ -29,6 +29,7 @@ class Server {
         this.app.use('/api/Deudas', routesDeudas);
         this.app.use('/api/Pagos', routerPagos);
         this.app.use('/api/users', routerUsers);
+        this.app.use('/api/delete', routerUsers);
         this.app.use('/api/MediosPrestamo', routerDrop);
     }
 

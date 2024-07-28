@@ -6,8 +6,8 @@
 
 # Frontend
 
-- npm run typescript
+- ng serve
 
 # Server 
 - npm run dev
-
+- npm run typescript

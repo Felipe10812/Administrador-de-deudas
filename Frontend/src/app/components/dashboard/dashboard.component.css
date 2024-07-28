@@ -11,11 +11,11 @@ table {
 
 .mat-column-Nombre,
 .mat-column-Cantidad {
-  width: 30%;
+  width: 35%;
 }
 
 .mat-column-Acciones {
-  width: 30%;
+  width: 25%;
 }
 
 .action-button {
