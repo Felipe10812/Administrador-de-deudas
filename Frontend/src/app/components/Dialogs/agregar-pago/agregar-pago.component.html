@@ -1,0 +1,40 @@
+<h1 class="centrar-texto">Agregar Pago</h1>
+<div id="AgregarPago">
+    <form [formGroup]="formRegistroPago" (ngSubmit)="onSubmit()">
+        <div class="form-floating mb-3">
+            <select class="form-control custom-select" formControlName="MedioPago">
+                <option *ngFor="let medio of mediosPrestamoPagos" [value]="medio.IdMedio">
+                    {{ medio.Nombre }}
+                </option>
+            </select>
+            <label>Medio por el cual se hizo el pago</label>
+            <div class="alert alert-danger mt-2" [hidden]="getMedioPago?.valid || getMedioPago?.pristine">
+                El campo es requerido
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" formControlName="FechaPago">
+            <label>Fecha del pago</label>
+            <div class="alert alert-danger mt-2" [hidden]="getFechaPago?.valid || getFechaPago?.pristine">
+                El campo es requerido
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="number" class="form-control" formControlName="Cantidad" (input)="onCantidadInput($event)"
+                step="0.01">
+            <label>Cantidad</label>
+            <div class="alert alert-danger mt-2" [hidden]="getCantidad?.valid || getCantidad?.pristine">
+                El campo es requerido y debe ser un número válido
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" formControlName="Motivo">
+            <label>Motivo</label>
+            <div class="alert alert-danger mt-2" [hidden]="getMotivo?.valid || getMotivo?.pristine">
+                El campo es requerido
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancelar</button>
+    </form>
+</div>

@@ -8,3 +8,8 @@ export interface loginUsuario {
     Correo: string,
     password: string
 }
+
+export interface deleteUseario {
+    IdUsuario: number,
+    esActivo: boolean
+}

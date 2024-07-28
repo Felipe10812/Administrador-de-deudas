@@ -10,13 +10,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { DeudasService } from '../../services/deudas.service';
 import { HttpClient } from '@angular/common/http';
 import { Deudas, Deudores } from '../../interfaces/Deudas';
 import { Observer } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AgregarComponent } from '../Dialogs/agregar/agregar.component';
+import { ToastrService } from 'ngx-toastr';
+import { EliminarComponent } from '../Dialogs/eliminar/eliminar.component';
+import { DeudasService } from '../../services/deudas.service';
+import { AgregarPagoComponent } from '../Dialogs/agregar-pago/agregar-pago.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,7 +39,7 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _deudasServices: DeudasService, private http: HttpClient, private dialog: MatDialog) {
+  constructor(private _deudasServices: DeudasService, private http: HttpClient, private dialog: MatDialog, private toastr: ToastrService,) {
 
   }
 
@@ -50,6 +53,21 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
 
   onAgregar(element: Deudas) {
     let dialogRef = this.dialog.open(AgregarComponent, {
+      height: 'auto',
+      width: '400px',
+      data: element,
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getDeudas(); // Recargar los datos después de cerrar el diálogo
+      }
+    });
+  }
+
+  onAgregarPago(element: Deudas) {
+    let dialogRef = this.dialog.open(AgregarPagoComponent, {
       height: 'auto',
       width: '400px',
       data: element,
@@ -86,14 +104,30 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
         };
       },
       error: (error: any) => {
-        console.error('Error al obtener las deudas:', error);
+        this.toastr.success('Error al obtener las deudas:', error);
       },
       complete: () => {
+        this.toastr.success('Datos de deudas obtenidos con éxito');
         console.log('Datos de deudas obtenidos con éxito');
       }
     };
 
     this._deudasServices.getDeudas().subscribe(observer);
+  }
+
+  onEliminar(element: Deudas) {
+    let dialogRef = this.dialog.open(EliminarComponent, {
+      height: 'auto',
+      width: '300px',
+      data: element,
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getDeudas(); // Recargar los datos después de cerrar el diálogo
+      }
+    });
   }
 
 }

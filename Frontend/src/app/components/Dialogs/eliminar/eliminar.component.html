@@ -1,1 +1,10 @@
-<p>eliminar works!</p>
+<!-- eliminar-confirmacion.component.html -->
+<h2 mat-dialog-title class="dialog-title">Confirmación de Eliminación</h2>
+<div mat-dialog-content class="dialog-content">
+    <mat-icon color="warn" class="warning-icon">warning</mat-icon>
+    <p>¿Estás seguro de que deseas eliminar este registro?</p>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+    <button mat-raised-button (click)="onCancel()" class="cancel-button">Cancelar</button>
+    <button mat-raised-button color="warn" (click)="onConfirm()" class="confirm-button">Eliminar</button>
+</div>

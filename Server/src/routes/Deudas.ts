@@ -5,6 +5,6 @@ import ValidateToken from "./validate-token";
 const router = Router();
 
 router.get('/', ValidateToken, getDeudas);
-router.post('/', postDeuda);
+router.post('/', ValidateToken, postDeuda);
 
 export default router;

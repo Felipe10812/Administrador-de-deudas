@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Usuario, loginUsuario } from '../interfaces/User';
+import { Usuario, deleteUseario, loginUsuario } from '../interfaces/User';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -22,5 +22,9 @@ export class UserService {
 
   login(user: loginUsuario): Observable<string> {
     return this.http.post<string>(`${this.MyAppUrl}${this.MyApiUrl}login`, user);
+  }
+
+  deleteUseario(user: deleteUseario): Observable<any> {
+    return this.http.post(`${this.MyAppUrl}${this.MyApiUrl}delete`, user)
   }
 }

@@ -52,3 +52,48 @@ export const postDeuda = async (req: Request, res: Response) => {
         }
     }
 };
+
+export const postPago = async (req: Request, res: Response) => {
+    const { IdUsuario, IdMedioPago, Cantidad, Motivo, FechaRegistro } = req.body;
+
+    try {
+        // Ejecución del procedimiento almacenado
+        const result = await sequelize.query(
+            'exec procAgregarPago :IdUsuario, :IdMedioPago, :Cantidad, :Motivo, :FechaRegistro',
+            {
+                replacements: {
+                    IdUsuario,
+                    IdMedioPago,
+                    Cantidad,
+                    Motivo,
+                    FechaRegistro
+                },
+                type: QueryTypes.RAW  // Utiliza QueryTypes aquí
+            }
+        );
+
+        if (result) {
+            res.json({
+                msg: 'Pago agregado correctamente.'
+            })
+        } else {
+            res.status(400).json({
+                msg: 'Ocurrió un error.'
+            });
+        }
+    } catch (error) {
+        console.error('Error al ejecutar el procedimiento almacenado:', error);
+
+        if (error instanceof Error) {
+            res.status(500).json({
+                msg: 'Ocurrió un error en el servidor.',
+                error: error.message
+            });
+        } else {
+            res.status(500).json({
+                msg: 'Ocurrió un error en el servidor.',
+                error: String(error)
+            });
+        }
+    }
+};

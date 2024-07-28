@@ -1,41 +1,41 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AgregarDeuda } from '../../../interfaces/Deudas';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
-import { DropdownService } from '../../../services/dropdown.service';
 import { Medio_Deuda_Prestamo } from '../../../interfaces/Dropdown';
-import { CommonModule } from '@angular/common';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DropdownService } from '../../../services/dropdown.service';
 import { ToastrService } from 'ngx-toastr';
-import { DeudasService } from '../../../services/deudas.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { PagosService } from '../../../services/pagos.service';
 import { ErrorService } from '../../../services/error.service';
+import { AgregarPago } from '../../../interfaces/Pagos';
+import { HttpErrorResponse } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-agregar',
+  selector: 'app-agregar-pago',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './agregar.component.html',
-  styleUrls: ['./agregar.component.css']
+  templateUrl: './agregar-pago.component.html',
+  styleUrl: './agregar-pago.component.css'
 })
-export class AgregarComponent implements OnInit {
+export class AgregarPagoComponent implements OnInit {
 
-  formRegistroDeuda: FormGroup;
-  mediosPrestamo: Medio_Deuda_Prestamo[] = [];
+  formRegistroPago: FormGroup;
+  mediosPrestamoPagos: Medio_Deuda_Prestamo[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { IdUsuario: number },
-    private dialogRef: MatDialogRef<AgregarComponent>,
+    private dialogRef: MatDialogRef<AgregarPagoComponent>,
     private _dropdownService: DropdownService,
     private toastr: ToastrService,
-    private deudasService: DeudasService,
+    private pagosService: PagosService,
     private _errorService: ErrorService,
   ) {
     const fechaActual = new Date();
     const fechaFormateada = this.formatDateToLocal(fechaActual);
 
-    this.formRegistroDeuda = new FormGroup({
-      MedioPrestamo: new FormControl('', Validators.required),
-      FechaPrestamo: new FormControl(fechaFormateada.toISOString().split('T')[0], Validators.required),
+    this.formRegistroPago = new FormGroup({
+      MedioPago: new FormControl('', Validators.required),
+      FechaPago: new FormControl(fechaFormateada.toISOString().split('T')[0], Validators.required),
       Cantidad: new FormControl('', [Validators.required, this.decimalValidator(2)]),
       Motivo: new FormControl('', Validators.required)
     });
@@ -49,7 +49,7 @@ export class AgregarComponent implements OnInit {
     this._dropdownService.getMediosPrestamo().subscribe({
       next: (data: any) => {
         if (Array.isArray(data) && Array.isArray(data[0])) {
-          this.mediosPrestamo = data[0];
+          this.mediosPrestamoPagos = data[0];
         } else {
           console.error('Estructura de datos inesperada:', data);
         }
@@ -63,44 +63,44 @@ export class AgregarComponent implements OnInit {
     });
   }
 
-  get getMedioPrestamo() {
-    return this.formRegistroDeuda.get('MedioPrestamo');
+  get getMedioPago() {
+    return this.formRegistroPago.get('MedioPago');
   }
 
-  get getFechaPrestamo() {
-    return this.formRegistroDeuda.get('FechaPrestamo');
+  get getFechaPago() {
+    return this.formRegistroPago.get('FechaPago');
   }
 
   get getCantidad() {
-    return this.formRegistroDeuda.get('Cantidad');
+    return this.formRegistroPago.get('Cantidad');
   }
 
   get getMotivo() {
-    return this.formRegistroDeuda.get('Motivo');
+    return this.formRegistroPago.get('Motivo');
   }
 
   onSubmit() {
-    if (this.formRegistroDeuda.valid) {
-      this.addDeuda();
+    if (this.formRegistroPago.valid) {
+      this.addPago();
     } else {
       this.toastr.error('Formulario no válido');
     }
   }
 
-  addDeuda() {
-    const fechaRegistro = this.formatDateToLocal(new Date(this.getFechaPrestamo?.value));
-    const deuda: AgregarDeuda = {
+  addPago() {
+    const fechaRegistro = this.formatDateToLocal(new Date(this.getFechaPago?.value));
+    const pago: AgregarPago = {
       IdUsuario: this.data.IdUsuario,
-      IdMedioPrestamo: this.getMedioPrestamo?.value,
+      IdMedioPago: this.getMedioPago?.value,
       FechaRegistro: fechaRegistro,
       Cantidad: parseFloat(this.getCantidad?.value),
       Motivo: this.getMotivo?.value
     };
 
-    this.deudasService.postDeuda(deuda).subscribe({
+    this.pagosService.postPago(pago).subscribe({
       next: () => {
-        this.toastr.success('Deuda agregada con éxito');
-        this.dialogRef.close(deuda);
+        this.toastr.success('Pago agregado con éxito');
+        this.dialogRef.close(pago);
       },
       error: (e: HttpErrorResponse) => {
         this._errorService.msjError(e);
