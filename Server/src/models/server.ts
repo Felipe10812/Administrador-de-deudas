@@ -2,7 +2,7 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import routesDeudas from '../routes/Deudas';
 import routerUsers from '../routes/user';
-import routerDrop from '../routes/dropdown';
+import routerDrop from '../routes/dropdown'
 import routerPagos from '../routes/Pagos';
 
 class Server {
@@ -26,11 +26,11 @@ class Server {
     }
 
     routes() {
-        this.app.use('/api/Deudas', routesDeudas);
+        this.app.use('/api/', routesDeudas);
         this.app.use('/api/Pagos', routerPagos);
         this.app.use('/api/users', routerUsers);
         this.app.use('/api/delete', routerUsers);
-        this.app.use('/api/MediosPrestamo', routerDrop);
+        this.app.use('/api/', routerDrop);
     }
 
     midlewares() {

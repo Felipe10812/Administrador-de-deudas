@@ -51,14 +51,14 @@ export class AgregarComponent implements OnInit {
         if (Array.isArray(data) && Array.isArray(data[0])) {
           this.mediosPrestamo = data[0];
         } else {
-          console.error('Estructura de datos inesperada:', data);
+          this.toastr.error('Ocurrio un error.')
         }
       },
       error: (error: any) => {
-        console.error('Ocurrió un error', error);
+        this.toastr.error('Ocurrio un error.')
       },
       complete: () => {
-        console.log('Dropdown cargado con éxito');
+
       }
     });
   }
@@ -134,7 +134,7 @@ export class AgregarComponent implements OnInit {
   }
 
   private formatDateToLocal(date: Date): Date {
-    const localDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
+    const localDate = new Date(date.toLocaleString('en-MX', { timeZone: 'America/Mexico_City' }));
     const year = localDate.getFullYear();
     const month = ('0' + (localDate.getMonth() + 1)).slice(-2);
     const day = ('0' + localDate.getDate()).slice(-2);

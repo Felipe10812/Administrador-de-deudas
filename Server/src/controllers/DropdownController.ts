@@ -13,3 +13,13 @@ export const getMediosPrestamo = async (req: Request, res: Response) => {
     }
 }
 
+export const getUsuarios = async (req: Request, res: Response) => {
+    try {
+        const ListadoUsuarios = await sequelize.query('exec procListaDeudores');
+        console.log(ListadoUsuarios);
+        res.json(ListadoUsuarios);
+    } catch (error) {
+        console.error('Error al obtener los Usuarios:', error);
+        res.status(500).json({ message: 'Error al obtener los usuarios :(' });
+    }
+}

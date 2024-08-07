@@ -5,3 +5,8 @@ export interface Medio_Deuda_Prestamo {
     FechaRegistro: Date,
     EstadoActivo: boolean
 }
+
+export interface Drop_Usuarios {
+    IdUsuario: number,
+    Nombre: string
+}

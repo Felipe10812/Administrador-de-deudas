@@ -39,7 +39,11 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private _deudasServices: DeudasService, private http: HttpClient, private dialog: MatDialog, private toastr: ToastrService,) {
+  constructor(
+    private _deudasServices: DeudasService,
+    private http: HttpClient,
+    private dialog: MatDialog,
+    private toastr: ToastrService) {
 
   }
 
@@ -89,7 +93,7 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
           this.dataSource.data = deudoresArray;
           console.log(this.dataSource.data);
         } else {
-          console.error('La estructura de los datos recibidos no es la esperada:', data);
+          this.toastr.error('La estructura de los datos recibidos no es la esperada');
         }
 
         this.dataSource.sortingDataAccessor = (data, sortHeaderId) => {
@@ -104,7 +108,7 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
         };
       },
       error: (error: any) => {
-        this.toastr.success('Error al obtener las deudas:', error);
+        this.toastr.error('Error al obtener las deudas:', error);
       },
       complete: () => {
         this.toastr.success('Datos de deudas obtenidos con éxito');

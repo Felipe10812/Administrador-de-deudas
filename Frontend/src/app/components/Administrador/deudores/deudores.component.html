@@ -1,2 +1,6 @@
 <app-navbar></app-navbar>
-<p>deudores works!</p>
+<div class="color">
+    <app-drop-usuarios (usuarioSeleccionado)="onUsuarioSeleccionado($event)"></app-drop-usuarios>
+    <app-tabla-deudas-usuarios [IdUsuario]="IdUsuario"></app-tabla-deudas-usuarios>
+
+</div>

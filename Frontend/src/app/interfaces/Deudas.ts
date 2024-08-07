@@ -22,3 +22,12 @@ export interface AgregarDeuda {
     Motivo: string
     FechaRegistro: Date
 }
+
+export interface Deudor {
+    IdUsuario: number;
+    IdTransaccion: number;
+    Cantidad: number;
+    Motivo: string;
+    FechaRegistro: Date;
+    Tipo: string;
+}
