@@ -3,10 +3,10 @@
 }
 
 .imagen {
-    width: 75px;
     /* Ancho de la imagen */
-    height: auto;
+    width: 75px;
     /* Ajuste proporcional de la altura */
-    max-width: 100%;
+    height: auto;
     /* Ajusta la imagen a no ser más grande que su contenedor */
+    max-width: 100%;
 }

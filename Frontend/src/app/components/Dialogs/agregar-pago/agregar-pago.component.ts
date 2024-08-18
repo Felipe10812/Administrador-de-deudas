@@ -25,17 +25,17 @@ export class AgregarPagoComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { IdUsuario: number },
     private dialogRef: MatDialogRef<AgregarPagoComponent>,
-    private _dropdownService: DropdownService,
     private toastr: ToastrService,
+    private _dropdownService: DropdownService,
     private pagosService: PagosService,
     private _errorService: ErrorService,
   ) {
     const fechaActual = new Date();
-    const fechaFormateada = this.formatDateToLocal(fechaActual);
+    const fechaFormateada = this.formatDate(fechaActual);
 
     this.formRegistroPago = new FormGroup({
       MedioPago: new FormControl('', Validators.required),
-      FechaPago: new FormControl(fechaFormateada.toISOString().split('T')[0], Validators.required),
+      FechaPago: new FormControl(fechaFormateada, Validators.required),  // Aquí inicializamos correctamente la fecha
       Cantidad: new FormControl('', [Validators.required, this.decimalValidator(2)]),
       Motivo: new FormControl('', Validators.required)
     });
@@ -51,14 +51,11 @@ export class AgregarPagoComponent implements OnInit {
         if (Array.isArray(data) && Array.isArray(data[0])) {
           this.mediosPrestamoPagos = data[0];
         } else {
-          console.error('Estructura de datos inesperada:', data);
+          this.toastr.error('Estructura de datos inesperada:', data);
         }
       },
       error: (error: any) => {
-        console.error('Ocurrió un error', error);
-      },
-      complete: () => {
-        console.log('Dropdown cargado con éxito');
+        this.toastr.error('Ocurrió un error', error);
       }
     });
   }
@@ -88,11 +85,11 @@ export class AgregarPagoComponent implements OnInit {
   }
 
   addPago() {
-    const fechaRegistro = this.formatDateToLocal(new Date(this.getFechaPago?.value));
+    const fechaRegistro = new Date(this.getFechaPago?.value); // Obtenemos la fecha seleccionada sin hora
     const pago: AgregarPago = {
       IdUsuario: this.data.IdUsuario,
       IdMedioPago: this.getMedioPago?.value,
-      FechaRegistro: fechaRegistro,
+      FechaRegistro: fechaRegistro,  // Aquí solo pasamos la fecha seleccionada sin hora
       Cantidad: parseFloat(this.getCantidad?.value),
       Motivo: this.getMotivo?.value
     };
@@ -133,15 +130,11 @@ export class AgregarPagoComponent implements OnInit {
     }
   }
 
-  private formatDateToLocal(date: Date): Date {
-    const localDate = new Date(date.toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
-    const year = localDate.getFullYear();
-    const month = ('0' + (localDate.getMonth() + 1)).slice(-2);
-    const day = ('0' + localDate.getDate()).slice(-2);
-    const hours = ('0' + localDate.getHours()).slice(-2);
-    const minutes = ('0' + localDate.getMinutes()).slice(-2);
-    const seconds = ('0' + localDate.getSeconds()).slice(-2);
-    const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000Z`;
-    return new Date(formattedDate);
+  // Método corregido para manejar correctamente la fecha en formato yyyy-MM-dd
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
   }
 }

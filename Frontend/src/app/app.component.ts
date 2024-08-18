@@ -5,6 +5,8 @@ import SigInComponent from './components/sig-in/sig-in.component';
 import DashboardComponent from './components/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import DeudoresComponent from './components/Administrador/deudores/deudores.component';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-root',

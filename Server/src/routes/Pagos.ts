@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { postPago } from "../controllers/Deudas";
+import { postPago, postRegistro } from "../controllers/Deudas";
 import ValidateToken from "./validate-token";
 
 const router = Router();
 
-router.post('/', ValidateToken, postPago);
+router.post('/Pagos', ValidateToken, postPago);
+router.post('/Registro', ValidateToken, postRegistro);
 
 export default router;

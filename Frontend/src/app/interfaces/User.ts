@@ -13,3 +13,9 @@ export interface deleteUseario {
     IdUsuario: number,
     esActivo: boolean
 }
+
+export interface deleteRegistro {
+    IdUsuario: number,
+    IdPago: number,
+    Tipo: string
+}

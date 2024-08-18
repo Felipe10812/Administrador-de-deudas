@@ -27,7 +27,7 @@ class Server {
 
     routes() {
         this.app.use('/api/', routesDeudas);
-        this.app.use('/api/Pagos', routerPagos);
+        this.app.use('/api/', routerPagos);
         this.app.use('/api/users', routerUsers);
         this.app.use('/api/delete', routerUsers);
         this.app.use('/api/', routerDrop);

@@ -6,6 +6,6 @@ const router = Router();
 
 router.get('/Deudas', ValidateToken, getDeudas);
 router.get('/Deudores', ValidateToken, getDeudores);
-router.post('/', ValidateToken, postDeuda);
+router.post('/Deudas', ValidateToken, postDeuda);
 
 export default router;

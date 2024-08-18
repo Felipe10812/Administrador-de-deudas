@@ -19,15 +19,15 @@ export interface AgregarDeuda {
     IdUsuario: number,
     IdMedioPrestamo: number,
     Cantidad: number,
-    Motivo: string
+    Motivo: string,
     FechaRegistro: Date
 }
 
 export interface Deudor {
-    IdUsuario: number;
-    IdTransaccion: number;
-    Cantidad: number;
-    Motivo: string;
-    FechaRegistro: Date;
-    Tipo: string;
+    IdUsuario: number,
+    IdTransaccion: number,
+    Cantidad: number,
+    Motivo: string,
+    FechaRegistro: Date,
+    Tipo: string,
 }

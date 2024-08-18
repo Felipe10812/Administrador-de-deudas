@@ -1,0 +1,36 @@
+/* eliminar-confirmacion.component.scss */
+.dialog-title {
+    color: #fff;
+    margin: 0;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #424242;
+}
+
+.dialog-content {
+    padding: 16px;
+    background-color: #424242;
+    color: #fff;
+}
+
+.dialog-message {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.dialog-actions {
+    padding: 8px 16px;
+    display: flex;
+    justify-content: flex-end;
+    background-color: #424242;
+}
+
+.cancel-button,
+.confirm-button {
+    margin-left: 8px;
+    font-size: 14px;
+    padding: 8px 16px;
+}

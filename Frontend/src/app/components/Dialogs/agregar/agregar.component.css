@@ -62,3 +62,20 @@ form .form-floating textarea:focus {
     border-color: #007bff;
     outline: 0;
 }
+
+.form-control {
+    border-radius: 0.25rem;
+    /* Bordes redondeados */
+    border-color: #ced4da;
+    /* Color del borde */
+}
+
+.form-floating .form-control::placeholder {
+    color: #6c757d;
+    /* Color del texto del placeholder */
+}
+
+.alert-danger {
+    font-size: 0.875rem;
+    /* Tamaño de fuente más pequeño para el mensaje de error */
+}

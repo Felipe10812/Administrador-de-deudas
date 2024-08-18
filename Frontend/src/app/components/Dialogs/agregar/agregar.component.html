@@ -8,17 +8,19 @@
                 </option>
             </select>
             <label>Medio por el cual se hizo el préstamo</label>
-            <div class="alert alert-danger mt-2" [hidden]="getMedioPrestamo?.valid || getMedioPrestamo?.pristine">
+            <div class="alert alert-danger mt-2" *ngIf="getMedioPrestamo?.invalid && getMedioPrestamo?.touched">
                 El campo es requerido
             </div>
+
         </div>
         <div class="form-floating mb-3">
             <input type="date" class="form-control" formControlName="FechaPrestamo">
             <label>Fecha del préstamo</label>
-            <div class="alert alert-danger mt-2" [hidden]="getFechaPrestamo?.valid || getFechaPrestamo?.pristine">
+            <div class="alert alert-danger mt-2" *ngIf="getFechaPrestamo?.invalid && getFechaPrestamo?.touched">
                 El campo es requerido
             </div>
         </div>
+
         <div class="form-floating mb-3">
             <input type="number" class="form-control" formControlName="Cantidad" (input)="onCantidadInput($event)"
                 step="0.01">

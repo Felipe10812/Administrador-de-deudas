@@ -7,14 +7,14 @@
                     {{ medio.Nombre }}
                 </option>
             </select>
-            <label>Medio por el cual se hizo el pago</label>
-            <div class="alert alert-danger mt-2" [hidden]="getMedioPago?.valid || getMedioPago?.pristine">
+            <label>Medio por el cual se hizo el préstamo</label>
+            <div class="alert alert-danger mt-2" *ngIf="getMedioPago?.valid && getMedioPago?.pristine">
                 El campo es requerido
             </div>
         </div>
         <div class="form-floating mb-3">
             <input type="date" class="form-control" formControlName="FechaPago">
-            <label>Fecha del pago</label>
+            <label>Fecha del préstamo</label>
             <div class="alert alert-danger mt-2" [hidden]="getFechaPago?.valid || getFechaPago?.pristine">
                 El campo es requerido
             </div>

@@ -1,4 +1,4 @@
-export interface PAgos {
+export interface Pagos {
     IdPrestamo: number,
     IdUsuario: number,
     IdMedioPrestamo: number,

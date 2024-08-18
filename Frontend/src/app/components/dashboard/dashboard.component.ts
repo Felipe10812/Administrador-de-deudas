@@ -25,9 +25,9 @@ import { AgregarPagoComponent } from '../Dialogs/agregar-pago/agregar-pago.compo
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    CommonModule, RouterModule, NavbarComponent, MatFormFieldModule,
+    CommonModule, RouterModule, NavbarComponent, MatDialogModule,
     MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule,
-    MatButtonModule, MatTooltipModule, MatIconModule, MatDialogModule
+    MatButtonModule, MatTooltipModule, MatIconModule, MatFormFieldModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
@@ -111,8 +111,7 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
         this.toastr.error('Error al obtener las deudas:', error);
       },
       complete: () => {
-        this.toastr.success('Datos de deudas obtenidos con éxito');
-        console.log('Datos de deudas obtenidos con éxito');
+
       }
     };
 

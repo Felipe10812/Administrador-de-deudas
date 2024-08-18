@@ -50,6 +50,7 @@ export const getDeudores = async (req: Request, res: Response) => {
         }
     }
 };
+
 export const postDeuda = async (req: Request, res: Response) => {
     const { IdUsuario, IdMedioPrestamo, Cantidad, Motivo, FechaRegistro } = req.body;
 
@@ -117,6 +118,52 @@ export const postPago = async (req: Request, res: Response) => {
         if (result) {
             res.json({
                 msg: 'Pago agregado correctamente.'
+            })
+        } else {
+            res.status(400).json({
+                msg: 'Ocurrió un error.'
+            });
+        }
+    } catch (error) {
+        console.error('Error al ejecutar el procedimiento almacenado:', error);
+
+        if (error instanceof Error) {
+            res.status(500).json({
+                msg: 'Ocurrió un error en el servidor.',
+                error: error.message
+            });
+        } else {
+            res.status(500).json({
+                msg: 'Ocurrió un error en el servidor.',
+                error: String(error)
+            });
+        }
+    }
+};
+
+export const postRegistro = async (req: Request, res: Response) => {
+    const { IdUsuario, IdPago, Tipo } = req.body;
+
+    try {
+        if (!IdUsuario || !IdPago || !Tipo) {
+            return res.status(400).json({ msg: 'Datos incompletos.' });
+        }
+        // Ejecución del procedimiento almacenado
+        const result = await sequelize.query(
+            'exec procEliminarRegistro :IdUsuario, :IdPago, :Tipo',
+            {
+                replacements: {
+                    IdUsuario,
+                    IdPago,
+                    Tipo
+                },
+                type: QueryTypes.RAW  // Utiliza QueryTypes aquí
+            }
+        );
+
+        if (result) {
+            res.json({
+                msg: 'Registro eliminado correctamente.'
             })
         } else {
             res.status(400).json({

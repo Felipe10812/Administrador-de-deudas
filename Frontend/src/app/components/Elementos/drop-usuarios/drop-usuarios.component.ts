@@ -32,8 +32,6 @@ export class DropUsuariosComponent implements OnInit {
       next: (data: any) => {
         if (Array.isArray(data)) {
           this.ListaUsuarios = data[0];
-          console.log(this.ListaUsuarios);
-          this.toastr.info('Estructura de datos cargada con éxito.');
         } else {
           this.toastr.error('Estructura de datos inesperada:', data);
         }
@@ -42,7 +40,7 @@ export class DropUsuariosComponent implements OnInit {
         this.toastr.error('Ocurrió un error', error);
       },
       complete: () => {
-        this.toastr.success('Dropdown cargado con éxito');
+
       }
     });
   }

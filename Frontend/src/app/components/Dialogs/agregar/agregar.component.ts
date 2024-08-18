@@ -31,17 +31,18 @@ export class AgregarComponent implements OnInit {
     private _errorService: ErrorService,
   ) {
     const fechaActual = new Date();
-    const fechaFormateada = this.formatDateToLocal(fechaActual);
+    const fechaFormateada = this.formatDate(fechaActual);
 
     this.formRegistroDeuda = new FormGroup({
       MedioPrestamo: new FormControl('', Validators.required),
-      FechaPrestamo: new FormControl(fechaFormateada.toISOString().split('T')[0], Validators.required),
+      FechaPrestamo: new FormControl(fechaFormateada, Validators.required),  // Aquí inicializamos correctamente la fecha
       Cantidad: new FormControl('', [Validators.required, this.decimalValidator(2)]),
       Motivo: new FormControl('', Validators.required)
     });
   }
 
   ngOnInit(): void {
+    console.log('IdUsuario en AgregarComponent:', this.data.IdUsuario);
     this.getMediosPrestamoPagos();
   }
 
@@ -88,11 +89,11 @@ export class AgregarComponent implements OnInit {
   }
 
   addDeuda() {
-    const fechaRegistro = this.formatDateToLocal(new Date(this.getFechaPrestamo?.value));
+    const fechaRegistro = new Date(this.getFechaPrestamo?.value);
     const deuda: AgregarDeuda = {
       IdUsuario: this.data.IdUsuario,
       IdMedioPrestamo: this.getMedioPrestamo?.value,
-      FechaRegistro: fechaRegistro,
+      FechaRegistro: fechaRegistro,  // Aquí solo pasamos la fecha seleccionada sin hora
       Cantidad: parseFloat(this.getCantidad?.value),
       Motivo: this.getMotivo?.value
     };
@@ -133,15 +134,10 @@ export class AgregarComponent implements OnInit {
     }
   }
 
-  private formatDateToLocal(date: Date): Date {
-    const localDate = new Date(date.toLocaleString('en-MX', { timeZone: 'America/Mexico_City' }));
-    const year = localDate.getFullYear();
-    const month = ('0' + (localDate.getMonth() + 1)).slice(-2);
-    const day = ('0' + localDate.getDate()).slice(-2);
-    const hours = ('0' + localDate.getHours()).slice(-2);
-    const minutes = ('0' + localDate.getMinutes()).slice(-2);
-    const seconds = ('0' + localDate.getSeconds()).slice(-2);
-    const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000Z`;
-    return new Date(formattedDate);
+  private formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
   }
 }

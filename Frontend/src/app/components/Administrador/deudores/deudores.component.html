@@ -1,6 +1,12 @@
 <app-navbar></app-navbar>
 <div class="color">
     <app-drop-usuarios (usuarioSeleccionado)="onUsuarioSeleccionado($event)"></app-drop-usuarios>
-    <app-tabla-deudas-usuarios [IdUsuario]="IdUsuario"></app-tabla-deudas-usuarios>
 
+    <!-- Botones de acción fuera de la tabla -->
+    <div class="action-buttons">
+        <button mat-raised-button color="accent" class="action-button" (click)="onAgregarDeuda()">Deuda</button>
+        <button mat-flat-button color="primary" class="action-button" (click)="onAgregarPago()">Pago</button>
+    </div>
+
+    <app-tabla-deudas-usuarios [IdUsuario]="IdUsuario"></app-tabla-deudas-usuarios>
 </div>
