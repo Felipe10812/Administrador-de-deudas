@@ -33,5 +33,9 @@
         </table>
 
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccione paginas"></mat-paginator>
+        <!-- Mostrar total -->
+        <div class="mat-cell centrar-texto">
+            <span>Total de la deuda: {{ totalCantidad | currency}}</span>
+        </div>
     </div>
 </div>

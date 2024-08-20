@@ -17,7 +17,7 @@ import { PagosService } from '../../../services/pagos.service';
 })
 export class EliminarRegistroComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { IdUsuario: number, IdPrestamo: number, IdPago: number, Tipo: string },
+    @Inject(MAT_DIALOG_DATA) public data: { IdUsuario: number, IdTransaccion: number, Tipo: string },
     private dialogRef: MatDialogRef<EliminarRegistroComponent>,
     private toastr: ToastrService,
     private _registroService: PagosService,
@@ -29,13 +29,12 @@ export class EliminarRegistroComponent {
   }
 
   onConfirm() {
-    // Ajustar IdPago dependiendo del tipo
-    const IdPago = this.data.Tipo === 'Deuda' ? this.data.IdPrestamo : this.data.IdPago;
+    const IdPago = this.data.Tipo === 'Deuda' ? this.data.IdTransaccion : this.data.IdTransaccion;
 
     const eliminarRegistro: deleteRegistro = {
       IdUsuario: this.data.IdUsuario,
       IdPago: IdPago,  // Usar la variable ajustada
-      Tipo: this.data.Tipo
+      Tipo: this.data.Tipo,
     };
 
     this._registroService.deleteRegistro(eliminarRegistro).subscribe({

@@ -73,6 +73,22 @@ export class TablaDeudasUsuariosComponent implements OnChanges {
     });
   }
 
+  onEliminar(element: Deudas) {
+    let dialogRef = this.dialog.open(EliminarRegistroComponent, {
+      height: 'auto',
+      width: '300px',
+      data: element,
+      panelClass: 'custom-dialog-container',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadDeudas();
+      }
+    });
+  }
+
   calculateTotal() {
     const tipoDeuda = 'Deuda'; // Cambia esto según el tipo que estés manejando
     let total = 0;
@@ -99,21 +115,5 @@ export class TablaDeudasUsuariosComponent implements OnChanges {
     if (this.Deudas.paginator) {
       this.Deudas.paginator.firstPage();
     }
-  }
-
-  onEliminar(element: Deudas) {
-    let dialogRef = this.dialog.open(EliminarRegistroComponent, {
-      height: 'auto',
-      width: '300px',
-      data: element,
-      panelClass: 'custom-dialog-container',
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.loadDeudas();
-      }
-    });
   }
 }

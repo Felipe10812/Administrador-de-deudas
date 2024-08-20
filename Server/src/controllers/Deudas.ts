@@ -142,7 +142,7 @@ export const postPago = async (req: Request, res: Response) => {
 };
 
 export const postRegistro = async (req: Request, res: Response) => {
-    const { IdUsuario, IdPago, Tipo } = req.body;
+    const { IdPago, IdUsuario, Tipo } = req.body;
 
     try {
         if (!IdUsuario || !IdPago || !Tipo) {
@@ -150,11 +150,11 @@ export const postRegistro = async (req: Request, res: Response) => {
         }
         // Ejecución del procedimiento almacenado
         const result = await sequelize.query(
-            'exec procEliminarRegistro :IdUsuario, :IdPago, :Tipo',
+            'exec procEliminarRegistro :IdPago, :IdUsuario, :Tipo',
             {
                 replacements: {
-                    IdUsuario,
                     IdPago,
+                    IdUsuario,
                     Tipo
                 },
                 type: QueryTypes.RAW  // Utiliza QueryTypes aquí

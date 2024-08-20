@@ -36,6 +36,8 @@ import { AgregarPagoComponent } from '../Dialogs/agregar-pago/agregar-pago.compo
 export default class DashboardComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['Nombre', 'Cantidad', 'Acciones'];
   dataSource = new MatTableDataSource<Deudores>();
+  totalCantidad: number = 0;
+
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -91,11 +93,14 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
         const deudoresArray = data[0]; // Extraer el primer elemento que es el array de deudores
         if (Array.isArray(deudoresArray)) {
           this.dataSource.data = deudoresArray;
-          console.log(this.dataSource.data);
+          // Calcular el total de Cantidad
+          this.totalCantidad = deudoresArray.reduce((total, element) => {
+            return total + element.Cantidad;
+          }, 0);
+
         } else {
           this.toastr.error('La estructura de los datos recibidos no es la esperada');
         }
-
         this.dataSource.sortingDataAccessor = (data, sortHeaderId) => {
           switch (sortHeaderId) {
             case 'Nombre':
@@ -131,6 +136,10 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
         this.getDeudas(); // Recargar los datos después de cerrar el diálogo
       }
     });
+  }
+
+  calculateTotal() {
+
   }
 
 }
