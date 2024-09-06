@@ -10,3 +10,8 @@ export interface Drop_Usuarios {
     IdUsuario: number,
     Nombre: string
 }
+
+export interface Roles {
+    IdRol: number,
+    Nombre: string
+}

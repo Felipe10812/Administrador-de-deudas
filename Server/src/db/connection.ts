@@ -1,9 +1,18 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
 
-const sequelize = new Sequelize('Finanzas', 'Admin1', 'Admin1', {
-    host: 'LAPTOP-QIJM9HA8\\SQLEXPRESS', // Es importante usar doble barra invertida para el carácter de escape
-    database: 'Finanzas',
-    dialect: 'mssql'
+dotenv.config();
+
+const databaseUrl = process.env.DATABASE_URL;
+
+if (!databaseUrl) {
+    throw new Error('DATABASE_URL is not defined in the environment variables.');
+}
+
+const sequelize = new Sequelize(databaseUrl, {
+    dialect: 'postgres',
+    logging: console.log, // Para habilitar registros
 });
+
 
 export default sequelize;

@@ -2,8 +2,13 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import routesDeudas from '../routes/Deudas';
 import routerUsers from '../routes/user';
-import routerDrop from '../routes/dropdown'
+import routerDrop from '../routes/dropdown';
 import routerPagos from '../routes/Pagos';
+import dotenv from 'dotenv';
+import sequelize from '../db/connection';
+
+// Cargar las variables de entorno desde el archivo .env
+dotenv.config();
 
 class Server {
     private app: Application;
@@ -11,7 +16,7 @@ class Server {
 
     constructor() {
         this.app = express();
-        this.port = process.env.PORT || '3001';
+        this.port = process.env.PORT || '1'; // Asegúrate de que PORT esté en el archivo .env
         this.listen();
         this.midlewares();
         this.routes();
@@ -20,9 +25,8 @@ class Server {
 
     listen() {
         this.app.listen(this.port, () => {
-            console.log('Aplicacion corriendo en el puerto: ', + this.port);
-            this.dbConnector();
-        })
+            console.log('Aplicación corriendo en el puerto: ', this.port);
+        });
     }
 
     routes() {
@@ -34,18 +38,20 @@ class Server {
     }
 
     midlewares() {
-        // Parseo body 
+        // Parsear el body de las peticiones
         this.app.use(express.json());
 
-        // Cores
-        this.app.use(cors())
+        // Habilitar CORS
+        this.app.use(cors());
     }
 
     async dbConnector() {
         try {
-            console.log("La Conexion finciono")
+            // Intentar conectar a la base de datos usando Sequelize
+            await sequelize.authenticate();
+            console.log('Conexión exitosa a la base de datos.');
         } catch (error) {
-            console.error('Imposible conectar a la base de datos', error);
+            console.error('Imposible conectar a la base de datos:', error);
         }
     }
 }

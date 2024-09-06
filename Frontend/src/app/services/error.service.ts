@@ -13,7 +13,7 @@ export class ErrorService {
     if (e.error.msg) {
       this.toastr.error(e.error.msg, 'Error');
     } else {
-      this.toastr.error('Ocurrio un problema', 'Error')
+      this.toastr.error('Ocurrio un problema :(', 'Error')
     }
   }
 }

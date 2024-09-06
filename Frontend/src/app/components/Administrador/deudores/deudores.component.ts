@@ -17,7 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-deudores',
   standalone: true,
-  imports: [RouterModule, NavbarComponent, DropUsuariosComponent, TablaDeudasUsuariosComponent,
+  imports: [
+    RouterModule, NavbarComponent, DropUsuariosComponent, TablaDeudasUsuariosComponent,
     CommonModule, MatButtonModule
   ],
   templateUrl: './deudores.component.html',

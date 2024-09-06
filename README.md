@@ -5,9 +5,12 @@
 - Set-ExecutionPolicy -Scope Process -ExecutionPolicy Default
 
 # Frontend
-
 - ng serve
 
 # Server 
 - npm run dev
 - npm run typescript
+
+
+
+- ng g c components/Administrador/GestorUsuarios

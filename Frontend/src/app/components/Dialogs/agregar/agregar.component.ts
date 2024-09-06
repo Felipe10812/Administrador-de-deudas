@@ -42,7 +42,6 @@ export class AgregarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('IdUsuario en AgregarComponent:', this.data.IdUsuario);
     this.getMediosPrestamoPagos();
   }
 

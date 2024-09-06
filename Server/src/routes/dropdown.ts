@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getMediosPrestamo, getUsuarios } from '../controllers/DropdownController';
+import { getMediosPrestamo, getRoles, getUsuarios } from '../controllers/DropdownController';
 import ValidateToken from './validate-token';
 
 const router = Router();
@@ -9,5 +9,6 @@ const router = Router();
 
 router.get('/MediosPrestamo', ValidateToken, getMediosPrestamo);
 router.get('/DropUsuarios', ValidateToken, getUsuarios);
+router.get('/Roles', ValidateToken, getRoles);
 
 export default router;

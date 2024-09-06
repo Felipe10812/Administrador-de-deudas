@@ -1,7 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
 html,
 body {
     height: 100%;
+    /* padding: 20px; */
+    background-color: #121212;
+    /* border-radius: 8px; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
 }
 
 .wrapper {
@@ -10,15 +14,22 @@ body {
     align-items: center;
     background-color: #121212;
     height: 100vh;
-    color: white;
+    /* color: white; */
 }
 
 body {
-    margin: 0;
+    margin: 0px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .color {
     background-color: #121212;
     height: 100vh;
+}
+
+#Fondo {
+    padding: 20px;
+    background-color: #121212;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

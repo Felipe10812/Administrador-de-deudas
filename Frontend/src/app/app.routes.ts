@@ -8,6 +8,8 @@ export const routes: Routes = [
     { path: 'sig-in', loadComponent: () => import('./components/sig-in/sig-in.component') },
     { path: 'dashboard', loadComponent: () => import('./components/dashboard/dashboard.component') },
     { path: 'deudores', loadComponent: () => import('./components/Administrador/deudores/deudores.component') },
+    { path: 'gestor-usuarios', loadComponent: () => import('./components/Administrador/gestor-usuarios/gestor-usuarios.component') },
+    { path: 'registros-deudas-pagos', loadComponent: () => import('./components/Administrador/registros-deudas-pagos/registros-deudas-pagos.component') },
 
     // { path: 'dashboard', component: DashboardComponent },
 
