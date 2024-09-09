@@ -5,6 +5,7 @@ import SigInComponent from './components/sig-in/sig-in.component';
 import DashboardComponent from './components/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import DeudoresComponent from './components/Administrador/deudores/deudores.component';
+import { BrowserModule } from '@angular/platform-browser';
 // import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -17,7 +18,7 @@ import DeudoresComponent from './components/Administrador/deudores/deudores.comp
     SigInComponent,
     DashboardComponent,
     DeudoresComponent,
-    HttpClientModule
+    HttpClientModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

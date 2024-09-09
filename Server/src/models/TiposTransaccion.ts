@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
 
-const DefinicionMediosPagoPrestamos = sequelize.define('MediosPagoPrestamos', {
-    IdMedio: {
+const TiposTransaccion = sequelize.define('TiposTransaccion', {
+    IdTiposTransaccion: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
@@ -13,10 +13,7 @@ const DefinicionMediosPagoPrestamos = sequelize.define('MediosPagoPrestamos', {
     Descripcion: {
         type: DataTypes.STRING
     },
-    FechaRegistro: {
-        type: DataTypes.DATE
-    },
-    EstadoActivo: {
+    EsActivo: {
         type: DataTypes.BOOLEAN
     },
 }, {
@@ -24,4 +21,4 @@ const DefinicionMediosPagoPrestamos = sequelize.define('MediosPagoPrestamos', {
     timestamps: false
 });
 
-export default DefinicionMediosPagoPrestamos;
+export default TiposTransaccion;

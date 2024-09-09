@@ -1,52 +1,113 @@
-<div class="wrapper">
-    <div *ngIf="!false" class="body">
-        <img class="imagen" src=".../../../../../assets/img/imgcuenta.jpg" alt="imglogin">
-        <h1 class="mb-3">Registrar usuario</h1>
-        <form [formGroup]="formRegistroUser">
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" placeholder="Nombre de usuario" formControlName="Nombre">
-                <label>Nombre de usuario</label>
-                <div class="alert alert-danger mt-2" [hidden]="getNombre.valid || getNombre.pristine">
-                    El nombre de usuario es requerido
+<div class="container mt-3">
+    <div *ngIf="!loading" class="body">
+        <!-- Título centrado en la parte superior -->
+        <p class="mt-5 text-uppercase d-flex justify-content-center mb-4 fs-3 text-light">Registro de usuario</p>
+        <!-- Contenedor principal con sombra -->
+        <div class="shadow rounded">
+            <div class="row">
+                <!-- Columna para el formulario -->
+                <div class="col-md-7 rounded-3" style="background-color: #1a1a1a;">
+                    <div class="form-left h-100 py-5 px-5">
+                        <form [formGroup]="formRegistroUser" class="row g-4">
+
+                            <!-- Correo -->
+                            <div class="col-12">
+                                <label class="pb-2 text-light">Correo <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="email" class="form-control" placeholder="Ingresa tu correo"
+                                        formControlName="Correo" required>
+                                </div>
+                                <!-- Mensajes de error -->
+                                <div class="mt-2 p-2 error-message" *ngIf="getCorreo.invalid && getCorreo.touched">
+                                    <span *ngIf="getCorreo.errors?.['required']" class="text-danger">El correo es
+                                        obligatorio</span>
+                                    <span *ngIf="getCorreo.errors?.['email']" class="text-danger">El correo no es
+                                        válido</span>
+                                </div>
+                            </div>
+
+                            <!-- Usuario -->
+                            <div class="col-12">
+                                <label class="pb-2 text-light">Usuario <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Ingresa tu nombre de usuario"
+                                        formControlName="Nombre" required>
+                                </div>
+                                <!-- Mensajes de error -->
+                                <div class="mt-2 p-2 error-message" *ngIf="getNombre.invalid && getNombre.touched">
+                                    <span class="text-danger">El nombre de usuario es requerido</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="pb-2 text-light">Contraseña <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" placeholder="Ingresa una contraseña"
+                                        formControlName="Contraseña" required (input)="evaluarSeguridad($event)"
+                                        matTooltip="La contraseña debe tener al menos 8 caracteres, incluir una letra mayúscula, una minúscula, un número y un carácter especial.">
+                                </div>
+                                <!-- Mensajes de error -->
+                                <div class="mt-2 p-2 error-message"
+                                    *ngIf="getContrasena.invalid && getContrasena.touched">
+                                    <span class="text-danger">La contraseña es requerida</span>
+                                </div>
+                                <!-- Medidor de fuerza de la contraseña -->
+                                <div class="mt-2">
+                                    <div class="progress">
+                                        <div class="progress-bar" [ngClass]="{
+                                            'bg-danger': passwordStrength <= 25, 
+                                            'bg-warning': passwordStrength > 25 && passwordStrength <= 50, 
+                                            'bg-info': passwordStrength > 50 && passwordStrength <= 75, 
+                                            'bg-success': passwordStrength > 75
+                                        }" [style.width]="passwordStrength + '%'"></div>
+                                    </div>
+                                    <small class="text-light">Fuerza de la contraseña: {{passwordStrength}}%</small>
+                                </div>
+                            </div>
+
+                            <!-- Confirmar contraseña -->
+                            <div class="col-12">
+                                <label class="pb-2 text-light">Confirmar contraseña <span
+                                        class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" placeholder="Confirma tu contraseña"
+                                        formControlName="ConfirmarContraseña" required>
+                                </div>
+                                <!-- Mensajes de error -->
+                                <div class="mt-2 p-2 error-message"
+                                    *ngIf="getConfirmarContrasena.invalid && getConfirmarContrasena.touched">
+                                    <span class="text-danger">La confirmación de la contraseña es requerida</span>
+                                </div>
+                                <!-- Error si las contraseñas no coinciden -->
+                                <div class="mt-2 p-2 error-message"
+                                    *ngIf="formRegistroUser.errors?.['mismatch'] && getConfirmarContrasena.touched">
+                                    <span class="text-danger">Las contraseñas no coinciden</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <!-- Botón para crear cuenta -->
+                                <button type="button" class="btn btn-outline-primary float-end mt-4" (click)="addUser()"
+                                    [disabled]="formRegistroUser.invalid">
+                                    Crear Cuenta
+                                </button>
+
+                                <!-- Botón para volver -->
+                                <button type="button" class="btn btn-outline-warning float-start mt-4"
+                                    routerLink="/login">Volver</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Columna con imagen de fondo -->
+                <div class="col-md-5 ps-0 d-none d-md-block">
+                    <div class="form-right h-100 bg-primary text-white text-center pt-5 rounded-3"
+                        style="background-image: url('../../../../assets/img/imgcuenta.jpg'); background-size: cover; background-position: center;">
+                    </div>
                 </div>
             </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" placeholder="Correo del usuario" formControlName="Correo">
-                <label>Correo electronico</label>
-                <div class="alert alert-danger mt-2" [hidden]="getCorreo.valid || getCorreo.pristine">
-                    <span *ngIf="getCorreo.errors?.['required']">
-                        El correo es obligatorio
-                    </span>
-                    <span *ngIf="getCorreo.errors?.['email']">
-                        El correo es no es valido
-                    </span>
-                </div>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" placeholder="Contraseña" formControlName="Contraseña">
-                <label>Contraseña</label>
-                <div class="alert alert-danger mt-2" [hidden]="getContrasena.valid || getContrasena.pristine">
-                    La contraseña es requerida
-                </div>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="ConfirmarContraseña" placeholder="Confirmar Contrasena"
-                    formControlName="ConfirmarContraseña">
-                <label>Confirmar Contraseña</label>
-                <div class="alert alert-danger mt-2"
-                    [hidden]="getConfirmarContrasena.valid || getConfirmarContrasena.pristine">
-                    La contraseña es requerida
-                </div>
-            </div>
-        </form>
-        <div class="d-grid gap-2 mb-3">
-            <button type="button" class="btn btn-outline-primary btn-lg" (click)="addUser()"
-                [disabled]="formRegistroUser.invalid">
-                Crear cuenta</button>
         </div>
-        <div class="d-grid gap-2">
-            <button type="button" class="btn btn-outline-warning btn-lg" routerLink="/login">Volver</button>
-        </div>
-        <app-spinner *ngIf="loading"></app-spinner>
     </div>
+    <app-spinner *ngIf="loading"></app-spinner>
 </div>

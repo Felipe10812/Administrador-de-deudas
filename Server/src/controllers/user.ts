@@ -15,13 +15,21 @@ export const nuevoUsuario = async (req: Request, res: Response) => {
         });
     }
 
+    // Validar la contraseña
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+        return res.status(400).json({
+            msg: 'La contraseña no cumple con los requisitos: debe tener al menos 8 caracteres, incluir una letra mayúscula, una minúscula, un número y un carácter especial.'
+        });
+    }
+
     try {
         // Encriptar la contraseña
         const hashPassword = await bcrypt.hash(password, 10);
 
         // Verificar si el usuario ya existe
         const user = await sequelize.query(
-            'SELECT * FROM Usuarios WHERE Correo = $1',
+            'SELECT * FROM "Usuarios" WHERE "Correo" = $1',
             {
                 bind: [Correo],
                 type: QueryTypes.SELECT
@@ -46,7 +54,6 @@ export const nuevoUsuario = async (req: Request, res: Response) => {
             msg: `Usuario ${userName} creado exitosamente`
         });
     } catch (error) {
-        console.error('Error al crear el usuario:', error);
         res.status(500).json({
             msg: 'Ocurrió un error al crear el usuario',
             error
@@ -57,48 +64,39 @@ export const nuevoUsuario = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
     try {
-        ;
-        const { Correo, password } = req.body
-
-        // Validar si el usuario existe en la base de datos 
-        const user: any = await DefinicionUsuarios.findOne({ where: { Correo } });
-
+        const { Correo, password } = req.body;
+        // Validamos si el usuario existe en la base de datos 
+        const user: any = await DefinicionUsuarios.findOne({ where: { Correo: Correo } })
         if (!user) {
             return res.status(400).json({
                 msg: `No existe el usuario con el correo ${Correo}`
             });
         }
+        // Validamos la contraseña 
+        const ValidarContraseña = await bcrypt.compare(password, user.Contraseña)
 
-        // Validar la contraseña 
-        const isPasswordValid = await bcrypt.compare(password, user.Contraseña);
-
-        if (!isPasswordValid) {
+        if (!ValidarContraseña) {
             return res.status(400).json({
                 msg: `Contraseña incorrecta`
-            });
+            })
         }
+        // generamos el token 
+        const token = jws.sign({
+            Correo: Correo,
+        }, process.env.SECRET_KEY || 'Hola', {
+            expiresIn: '30000000'
+        });
 
-        // Generar el token 
-        const token = jws.sign(
-            {
-                Correo: user.Correo,
-            },
-            process.env.SECRET_KEY || 'Hola', // Usa una variable de entorno para la clave secreta
-            {
-                expiresIn: '1h' // Define el tiempo de expiración según sea necesario
-            }
-        );
-
-        res.json({ token });
+        res.json(token)
 
     } catch (error) {
-        console.error('Error al iniciar sesión:', error);
-        res.status(500).json({
-            msg: 'Ocurrió un error',
+        console.error(error);
+        res.status(400).json({
+            msg: 'Ocurrio un error',
             error
         });
     }
-};
+}
 
 export const deleteUser = async (req: Request, res: Response) => {
     const { IdUsuario, esActivo } = req.body;

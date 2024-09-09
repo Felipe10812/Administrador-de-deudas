@@ -1,53 +1,69 @@
-/* .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #121212;
-    height: 100vh;
+.container {
+    margin-top: 3rem;
 }
 
-.contenedor {
-    background-color: #1a1a1a;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 1rem;
-}
-
-.h1 {
-    margin-left: 1rem;
-    color: white;
-}
-
-.imagen {
-    width: 30%;
-    height: auto;
-    object-fit: cover;
-} */
-
-::placeholder,
-label {
-    color: #adb5bd;
-}
-
-input {
-    color: #adb5bd;
-    /* Establecer el color del texto */
-    background-color: #333;
-    /* Establecer el color de fondo del input */
-    border-color: #555;
-    /* Establecer el color del borde del input */
-}
-
-.imagen {
-
-    height: 200px;
-    margin-bottom: 10px;
-}
-
-.body {
-    max-width: 300px;
-    width: 100%;
+p {
+    color: #ffffff;
     text-align: center;
+    font-size: 16px;
+}
+
+.mat-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.form-container {
+    padding: 2rem;
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.full-width {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.text-principal {
+    color: #00bcd4;
+    /* Cyan color for links */
+}
+
+.image-right .image-container {
+    /* background-image: url('../../../../assets/img/imglogin.jpg'); */
+    background-image: url('/assets/img/imglogin.jpg');
+
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    border-radius: 0 8px 8px 0;
+}
+
+button.mat-raised-button {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    font-size: 16px;
+    /* Tamaño de la fuente para el texto */
+    padding: 10px 20px;
+    /* Ajuste de tamaño del botón */
+    border: 2px solid #007bff;
+    /* Ajuste del borde para que combine con Bootstrap */
+    background-color: transparent;
+    /* Mantener el color de fondo transparente con el outline */
+    color: #007bff;
+    /* Color del texto */
+}
+
+button.mat-raised-button:hover {
+    transform: scale(1.05);
+    /* Efecto de agrandarse ligeramente */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    /* Sombra */
+    background-color: #007bff;
+    /* Fondo al hacer hover */
+    color: white;
+    /* Color del texto al hacer hover */
 }

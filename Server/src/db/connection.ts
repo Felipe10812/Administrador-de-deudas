@@ -11,7 +11,6 @@ if (!databaseUrl) {
 
 const sequelize = new Sequelize(databaseUrl, {
     dialect: 'postgres',
-    logging: console.log, // Para habilitar registros
 });
 
 

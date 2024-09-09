@@ -10,9 +10,6 @@ const DefinicionUsuarios = sequelize.define('Usuarios', {
     Nombre: {
         type: DataTypes.CHAR
     },
-    SegundoNombre: {
-        type: DataTypes.CHAR
-    },
     ApellidoPaterno: {
         type: DataTypes.CHAR
     },
@@ -22,23 +19,20 @@ const DefinicionUsuarios = sequelize.define('Usuarios', {
     Contraseña: {
         type: DataTypes.STRING
     },
-    Direccion: {
+    IdDireccion: {
         type: DataTypes.STRING
     },
-    EstadoActivo: {
-        type: DataTypes.BOOLEAN
-    },
-    IdEstadoDeuda: {
-        type: DataTypes.NUMBER
-    },
-    FechaModificacion: {
-        type: DataTypes.DATE
+    Correo: {
+        type: DataTypes.STRING
     },
     FechaRegistro: {
         type: DataTypes.DATE
     },
-    Correo: {
-        type: DataTypes.STRING
+    EsActivo: {
+        type: DataTypes.BOOLEAN
+    },
+    FechaModificacion: {
+        type: DataTypes.DATE
     }
 }, {
     freezeTableName: true,

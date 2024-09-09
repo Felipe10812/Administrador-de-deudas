@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
@@ -9,12 +9,19 @@ import { loginUsuario } from '../../interfaces/User';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SpinnerComponent } from '../../shared/spinner/spinner.component';
 import { ErrorService } from '../../services/error.service';
-
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, SpinnerComponent],
+  imports: [
+    CommonModule, RouterModule, ReactiveFormsModule, SpinnerComponent, MatInputModule,
+    MatFormFieldModule, MatCardModule, FormsModule, MatButtonModule, MatProgressSpinnerModule
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -68,5 +75,4 @@ export default class LoginComponent implements OnInit {
       },
     })
   }
-
 }

@@ -1,56 +1,68 @@
-<!-- <div class="wrapper">
-    <h1>Login</h1>
-    <div class="contenedor rounded-3">
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" placeholder="name@example.com">
-            <label>Email address</label>
-        </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">Password</label>
-        </div>
-        <img class="imagen rounded float-end" src=".../../../../../assets/img/imglogin.jpg" alt="imglogin">
-    </div>
-</div> -->
-
-<div class="wrapper">
+<div class="container mt-3">
     <div *ngIf="!loading" class="body">
-        <img class="imagen" src=".../../../../../assets/img/imglogin.jpg" alt="imglogin">
-        <h1 class="mb-3">Iniciar sesión</h1>
-        <form [formGroup]="formLogin">
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" placeholder="Correo del usuario" formControlName="Correo">
-                <label>Correo del usuario</label>
-                <div class="alert alert-danger mt-2" [hidden]="getCorreo.valid || getCorreo.pristine">
-                    <span *ngIf="getCorreo.errors?.['required']">
-                        El correo es obligatorio
-                    </span>
-                    <span *ngIf="getCorreo.errors?.['email']">
-                        El correo es no es valido
-                    </span>
+        <p class="mt-5 text-uppercase d-flex justify-content-center mb-4 fs-3 text-light">Ingresa a tu cuenta</p>
+        <mat-card class="shadow rounded">
+            <div class="row">
+                <!-- Columna izquierda (Formulario) -->
+                <div class="col-md-7 rounded-3 form-left">
+                    <div class="form-container">
+                        <form [formGroup]="formLogin" class="form">
+                            <!-- Campo de Correo -->
+                            <mat-form-field class="full-width" appearance="fill">
+                                <mat-label>Correo</mat-label>
+                                <input matInput type="email" placeholder="Ingresa tu correo" formControlName="Correo"
+                                    required>
+                                <mat-error *ngIf="getCorreo.invalid && getCorreo.touched">
+                                    <span *ngIf="getCorreo.errors?.['required']">El correo es obligatorio</span>
+                                    <span *ngIf="getCorreo.errors?.['email']">El correo no es válido</span>
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Campo de Contraseña -->
+                            <mat-form-field class="full-width" appearance="fill">
+                                <mat-label>Contraseña</mat-label>
+                                <input matInput type="password" placeholder="Ingresa una contraseña"
+                                    formControlName="Contrasena" required>
+                                <mat-error *ngIf="getContrasena.invalid && getContrasena.touched">
+                                    La contraseña es requerida
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- Opción para restablecer contraseña -->
+                            <!-- <div class="full-width">
+                                <a routerLink="/reset-password" class="float-end text-principal">Olvidaste la
+                                    contraseña?</a>
+                            </div> -->
+                            <!-- Botón de Ingresar y enlace para crear cuenta -->
+                            <div class="full-width d-flex justify-content-between">
+                                <!-- Enlace para crear cuenta -->
+
+                                <p class="mt-3">¿No tienes cuenta?
+                                    <a routerLink="/sig-in" class="icon-link icon-link-hover"
+                                        style="--bs-link-hover-color-rgb: 25, 135, 84;">Registrate
+                                        <svg class="bi" aria-hidden="true">
+                                            <use xlink:href="#arrow-right"></use>
+                                        </svg>
+                                    </a>
+                                </p>
+
+                                <!-- Botón de ingresar con efecto Bootstrap y tamaño personalizado -->
+                                <button mat-raised-button class="btn btn-outline-primary" (click)="Login()"
+                                    [disabled]="formLogin.invalid">
+                                    Ingresar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Columna derecha (Imagen) -->
+                <div class="col-md-5 ps-0 image-right">
+                    <div class="image-container"></div>
                 </div>
             </div>
-            <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Contraseña"
-                    formControlName="Contrasena">
-                <label>Contraseña</label>
-                <div class="alert alert-danger mt-2" [hidden]="getContrasena.valid || getContrasena.pristine">
-                    La contraseña es requerida
-                </div>
-            </div>
-        </form>
-        <div class="d-grid gap-2 mb-3">
-            <button type="button" class="btn btn-outline-primary btn-lg" (click)="Login()"
-                [disabled]="formLogin.invalid">Ingresar</button>
-        </div>
-        <p class="mt-3">¿No tienes cuenta?
-            <a routerLink="/sig-in" class="icon-link icon-link-hover"
-                style="--bs-link-hover-color-rgb: 25, 135, 84;">Registrate
-                <svg class="bi" aria-hidden="true">
-                    <use xlink:href="#arrow-right"></use>
-                </svg>
-            </a>
-        </p>
+        </mat-card>
+
     </div>
-    <app-spinner *ngIf="loading"></app-spinner>
 </div>
+<app-spinner *ngIf="loading"></app-spinner>

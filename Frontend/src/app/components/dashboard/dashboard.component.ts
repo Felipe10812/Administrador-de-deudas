@@ -20,6 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 import { EliminarComponent } from '../Dialogs/eliminar/eliminar.component';
 import { DeudasService } from '../../services/deudas.service';
 import { AgregarPagoComponent } from '../Dialogs/agregar-pago/agregar-pago.component';
+import { SpinnerComponent } from '../../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,7 +28,8 @@ import { AgregarPagoComponent } from '../Dialogs/agregar-pago/agregar-pago.compo
   imports: [
     CommonModule, RouterModule, NavbarComponent, MatDialogModule,
     MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule,
-    MatButtonModule, MatTooltipModule, MatIconModule, MatFormFieldModule
+    MatButtonModule, MatTooltipModule, MatIconModule, MatFormFieldModule,
+    SpinnerComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
@@ -38,6 +40,7 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
   dataSource = new MatTableDataSource<Deudores>();
   totalCantidad: number = 0;
 
+  loading: boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -46,7 +49,6 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
     private http: HttpClient,
     private dialog: MatDialog,
     private toastr: ToastrService) {
-
   }
 
   ngAfterViewInit() {
@@ -90,38 +92,48 @@ export default class DashboardComponent implements AfterViewInit, OnInit {
   getDeudas() {
     const observer: Observer<Deudores[]> = {
       next: (data: Deudores[]) => {
-        const deudoresArray = data[0]; // Extraer el primer elemento que es el array de deudores
-        if (Array.isArray(deudoresArray)) {
+        if (data && data.length > 0 && Array.isArray(data)) {
+          // Asegúrate de que `Cantidad` sea tratado como número
+          const deudoresArray = data.map((item: Deudores) => ({
+            ...item,
+            Cantidad: Number(item.Cantidad)
+          }));
+
           this.dataSource.data = deudoresArray;
+
           // Calcular el total de Cantidad
           this.totalCantidad = deudoresArray.reduce((total, element) => {
             return total + element.Cantidad;
           }, 0);
 
+          this.dataSource.sortingDataAccessor = (data, sortHeaderId) => {
+            switch (sortHeaderId) {
+              case 'Nombre':
+                return data.Nombre.toLowerCase();
+              case 'Cantidad':
+                return data.Cantidad;
+              default:
+                return '';
+            }
+          };
         } else {
-          this.toastr.error('La estructura de los datos recibidos no es la esperada');
+          // Manejar el caso en que no haya valores en el JSON
+          this.toastr.warning('No se encontraron deudas.');
+          this.dataSource.data = []; // Dejar la tabla vacía
+          this.totalCantidad = 0; // Establecer el total a 0
         }
-        this.dataSource.sortingDataAccessor = (data, sortHeaderId) => {
-          switch (sortHeaderId) {
-            case 'Nombre':
-              return data.Nombre.toLowerCase();
-            case 'Cantidad':
-              return data.Cantidad;
-            default:
-              return '';
-          }
-        };
       },
       error: (error: any) => {
-        this.toastr.error('Error al obtener las deudas:', error);
+        this.toastr.error(`Error al obtener las deudas: ${error}`);
       },
       complete: () => {
-
+        // Lógica adicional cuando la operación se complete
       }
     };
 
     this._deudasServices.getDeudas().subscribe(observer);
   }
+
 
   onEliminar(element: Deudas) {
     let dialogRef = this.dialog.open(EliminarComponent, {

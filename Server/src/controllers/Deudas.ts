@@ -3,10 +3,32 @@ import sequelize from "../db/connection";
 import { QueryTypes } from 'sequelize';
 
 export const getDeudas = async (req: Request, res: Response) => {
-    const ListaDeudas = await sequelize.query('exec procConsultaDeudaPorUsuario')
-    console.log(ListaDeudas);
-    res.json(ListaDeudas);
+    try {
+        // Ejecutar la función de PostgreSQL respetando mayúsculas y minúsculas
+        const [ListaDeudas, metadata] = await sequelize.query('SELECT * FROM "ConsultaDeudaPorUsuario"()');
+
+        // Convertir la propiedad `Cantidad` a número
+        const deudas = ListaDeudas.map((deuda: any) => ({
+            ...deuda,
+            Cantidad: parseFloat(deuda.Cantidad) // Convertir a número
+        }));
+
+        // Imprimir el resultado para depuración (opcional)
+        console.log(deudas);
+
+        // Enviar la respuesta al cliente
+        res.json(deudas);
+
+    } catch (error) {
+        // Manejo de errores
+        console.error('Error al obtener las deudas:', error);
+        res.status(500).json({
+            msg: 'Ocurrió un error al obtener las deudas',
+            error
+        });
+    }
 }
+
 
 export const getDeudores = async (req: Request, res: Response) => {
     // Extraer IdUsuario de los parámetros de consulta

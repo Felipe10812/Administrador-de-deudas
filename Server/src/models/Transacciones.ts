@@ -1,11 +1,11 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
 
-const DefinicionPagos = sequelize.define('Pagos', {
-    IdPago: {
+const Transacciones = sequelize.define('Transacciones', {
+    IdTransaccion: {
         type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     IdUsuario: {
         type: DataTypes.INTEGER,
@@ -15,12 +15,20 @@ const DefinicionPagos = sequelize.define('Pagos', {
             key: 'IdUsuario' // Nombre de la columna a la que hace referencia en la tabla Usuarios
         }
     },
-    IdMedioPago: {
+    IdMedio: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         references: {
-            model: 'MediosPagoPrestamos', // Nombre de la tabla a la que hace referencia
-            key: 'IdMedio' // Nombre de la columna a la que hace referencia en la tabla Usuarios
+            model: 'MediosTransaccion', // Nombre de la tabla a la que hace referencia
+            key: 'IdMedio' // Nombre de la columna a la que hace referencia en la tabla MediosTransaccion
+        }
+    },
+    IdTipotransaccion: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        references: {
+            model: 'TiposTransaccion', // Nombre de la tabla a la que hace referencia
+            key: 'IdTipoTransaccion' // Nombre de la columna a la que hace referencia en la tabla TiposTransaccion
         }
     },
     Cantidad: {
@@ -44,4 +52,4 @@ const DefinicionPagos = sequelize.define('Pagos', {
     timestamps: false
 });
 
-export default DefinicionPagos;
+export default Transacciones;

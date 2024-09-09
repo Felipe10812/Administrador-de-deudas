@@ -1,8 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
 
-const DefinicionEstadosDeuda = sequelize.define('EstadosDeuda', {
-    IdEstado: {
+const MediosTransaccion = sequelize.define('MediosTransaccion', {
+    IdMedio: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -21,4 +21,4 @@ const DefinicionEstadosDeuda = sequelize.define('EstadosDeuda', {
     timestamps: false
 });
 
-export default DefinicionEstadosDeuda;
+export default MediosTransaccion;
